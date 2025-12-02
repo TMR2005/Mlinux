@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+PROJECT_DIR="/home/praveenkumar/mlinux-mvp"
+VENV_BIN="$PROJECT_DIR/.venv/bin/python3"
+
+cmd="$1"
+shift || true
+
+case "$cmd" in
+  dash)
+    exec "$VENV_BIN" "$PROJECT_DIR/system/ml_dashboard.py" "$@"
+    ;;
+  graph)
+    exec "$VENV_BIN" "$PROJECT_DIR/system/ml_gpu_graph.py" "$@"
+    ;;
+  advise)
+    exec "$VENV_BIN" "$PROJECT_DIR/system/ml_advisor.py" "$@"
+    ;;
+  stats)
+    tail -n 1 "$PROJECT_DIR/metrics.log"
+    ;;
+  *)
+    echo "mlinuxctl - MLinux control tool"
+    echo "Usage:"
+    echo "  mlinuxctl dash    # live dashboard"
+    echo "  mlinuxctl graph   # GPU utilization graph (recent)"
+    echo "  mlinuxctl advise  # batch size advisor"
+    echo "  mlinuxctl stats   # show last metrics entry"
+    exit 1
+    ;;
+esac
