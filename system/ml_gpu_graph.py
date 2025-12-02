@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 import json
 from collections import deque
-
-LOG_PATH = "/home/praveenkumar/mlinux-mvp/metrics.log"
+from dotenv import load_dotenv
+load_dotenv()
+LOG_PATH = os.getenv("MLINUX_METRICS_LOG")
 SAMPLES = 30  # last 30 samples
+INTERVAL = int(os.getenv("MLINUX_GPU_GRAPH_INTERVAL", "1"))
 
 def bar(pct, width=30):
     try:

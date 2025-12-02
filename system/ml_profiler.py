@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import time, json, psutil, subprocess, os
-
-LOG_PATH = "/home/praveenkumar/mlinux-mvp/metrics.log"
+from dotenv import load_dotenv
+load_dotenv()
+LOG_PATH = os.getenv("MLINUX_METRICS_LOG")
 
 LOW_UTIL_THRESHOLD = 10      # percent
 STARVATION_SECONDS = 8       # how long low util before we call it "starved"

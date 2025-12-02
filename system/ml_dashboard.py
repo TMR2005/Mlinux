@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import time, json, os
-
-LOG_PATH = "/home/praveenkumar/mlinux-mvp/metrics.log"
+from dotenv import load_dotenv
+load_dotenv()
+LOG_PATH = os.getenv("MLINUX_METRICS_LOG")
+REFRESH = int(os.getenv("MLINUX_DASHBOARD_REFRESH", "1"))
 
 def read_last_line(path):
     if not os.path.exists(path):

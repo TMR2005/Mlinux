@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-PROJECT_DIR="/home/praveenkumar/mlinux-mvp"
+from dotenv import load_dotenv
+load_dotenv()
+PROJECT_DIR = os.getenv("PROJECT_DIR")
 VENV_BIN="$PROJECT_DIR/.venv/bin/python3"
 
 cmd="$1"
