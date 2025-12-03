@@ -3,3 +3,10 @@ venv/
 __pycache__/
 metrics.log
 *.service
+# Ignore local virtual environments
+myenv/
+.myenv/
+env/
+ENV/
+virtualenv/
+pip-wheel-metadata/

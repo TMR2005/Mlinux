@@ -7,7 +7,7 @@ LOG_PATH = _resolve_log_path()
 
 
 def tail_metrics(path, lines=50):
-    """Return last N valid metric lines."""
+    """Return last N valid scheduler lines."""
     if not os.path.isfile(path):
         print("No metrics.log found.")
         return []
@@ -43,10 +43,10 @@ def show_scheduler_page():
 
     for pid, s in sched.items():
         print(f" PID {pid}:")
-        print(f"   Threads:              {s['threads']}")
-        print(f"   Voluntary Rate:       {s['voluntary_rate']:.1f}/s")
-        print(f"   Involuntary Rate:     {s['involuntary_rate']:.1f}/s")
-        print(f"   Interpretation:        {s['interpretation']}")
+        print(f"   Threads:              {s.get('threads', 0)}")
+        print(f"   Voluntary Rate:       {s.get('voluntary_rate', 0):.1f}/s")
+        print(f"   Involuntary Rate:     {s.get('involuntary_rate', 0):.1f}/s")
+        print(f"   Interpretation:        {s.get('interpretation', 'No interpretation')}")
         print()
 
     print("==========================================")
