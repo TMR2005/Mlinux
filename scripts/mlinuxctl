@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-PROJECT_DIR="/home/praveenkumar/mlinux-mvp"
-VENV_BIN="$PROJECT_DIR/.venv/bin/python3"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VENV_BIN="$(which python3)"
 
 cmd="$1"
 shift || true
@@ -19,13 +19,21 @@ case "$cmd" in
   stats)
     tail -n 1 "$PROJECT_DIR/metrics.log"
     ;;
+  summary)
+    exec "$VENV_BIN" "$PROJECT_DIR/system/ml_summary.py"
+    ;;
+  sched)
+    exec "$VENV_BIN" "$PROJECT_DIR/system/ml_sched.py"
+    ;;
   *)
     echo "mlinuxctl - MLinux control tool"
     echo "Usage:"
-    echo "  mlinuxctl dash    # live dashboard"
-    echo "  mlinuxctl graph   # GPU utilization graph (recent)"
-    echo "  mlinuxctl advise  # batch size advisor"
-    echo "  mlinuxctl stats   # show last metrics entry"
+    echo "  mlinuxctl dash"
+    echo "  mlinuxctl graph"
+    echo "  mlinuxctl advise"
+    echo "  mlinuxctl stats"
+    echo "  mlinuxctl summary"
+    echo "  mlinuxctl sched     # scheduler diagnostics"
     exit 1
     ;;
 esac

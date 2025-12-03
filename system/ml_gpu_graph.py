@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import json
 from collections import deque
+from ml_summary import _resolve_log_path
 
-LOG_PATH = "/home/praveenkumar/mlinux-mvp/metrics.log"
+
+LOG_PATH = _resolve_log_path()
 SAMPLES = 30  # last 30 samples
 
 def bar(pct, width=30):

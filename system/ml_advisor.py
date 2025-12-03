@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import json, os
+from ml_summary import _resolve_log_path
 
-LOG_PATH = "/home/praveenkumar/mlinux-mvp/metrics.log"
+
+LOG_PATH = _resolve_log_path()
 
 def read_last_line(path):
     if not os.path.exists(path):
