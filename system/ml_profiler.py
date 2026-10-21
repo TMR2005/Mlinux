@@ -1,43 +1,8 @@
 #!/usr/bin/env python3
 import time, json, psutil, subprocess, os
-import psutil
-
-# Resolve LOG_PATH dynamically with sensible fallbacks
-def _resolve_log_path():
-    # 1) Explicit override via environment variable
-    env_path = os.getenv("MLINUX_LOG_PATH")
-    if env_path:
-        return env_path
-
-    # 2) Workspace-relative (if running from repo or script directory)
-    try:
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        # Try repo root candidates relative to script directory
-        candidates = [
-            os.path.join(script_dir, "..", "metrics.log"),
-            os.path.join(script_dir, "..", "..", "mlinux-mvp", "metrics.log"),
-            os.path.join(script_dir, "..", "mlinux-mvp", "metrics.log"),
-        ]
-        for p in candidates:
-            p_norm = os.path.normpath(p)
-            # If file already exists, prefer it
-            if os.path.isfile(p_norm):
-                return p_norm
-            # Otherwise, remember the first reasonable candidate to create
-        # Use the first candidate as default create location if parent exists
-        for p in candidates:
-            p_norm = os.path.normpath(p)
-            parent = os.path.dirname(p_norm)
-            if os.path.isdir(parent):
-                return p_norm
-    except Exception:
-        pass
-
-    # 3) User home fallback (cross-platform safe)
-    home = os.path.expanduser("~")
-    return os.path.join(home, "mlinux-mvp", "metrics.log")
-
-LOG_PATH = _resolve_log_path()
+from dotenv import load_dotenv
+load_dotenv()
+LOG_PATH = os.getenv("MLINUX_METRICS_LOG")
 
 LOW_UTIL_THRESHOLD = 10      # percent
 STARVATION_SECONDS = 8       # how long low util before we call it "starved"

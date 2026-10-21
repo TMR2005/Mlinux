@@ -2,6 +2,9 @@ import time
 import subprocess
 import torch
 from torch import nn, optim
+from dotenv import load_dotenv
+load_dotenv()
+batch_size = int(os.getenv("MLINUX_DEFAULT_BATCH", "32"))
 
 def get_gpu_snapshot():
     """

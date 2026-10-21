@@ -6,6 +6,7 @@ from ml_summary import _resolve_log_path
 
 LOG_PATH = _resolve_log_path()
 SAMPLES = 30  # last 30 samples
+INTERVAL = int(os.getenv("MLINUX_GPU_GRAPH_INTERVAL", "1"))
 
 def bar(pct, width=30):
     try:
