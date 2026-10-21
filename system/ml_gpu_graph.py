@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import json
 from collections import deque
-from dotenv import load_dotenv
-load_dotenv()
-LOG_PATH = os.getenv("MLINUX_METRICS_LOG")
+from ml_summary import _resolve_log_path
+
+
+LOG_PATH = _resolve_log_path()
 SAMPLES = 30  # last 30 samples
 INTERVAL = int(os.getenv("MLINUX_GPU_GRAPH_INTERVAL", "1"))
 

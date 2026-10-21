@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-import json
-import os
-import argparse
-from dotenv import load_dotenv
-load_dotenv()
-LOG_PATH = os.getenv("MLINUX_METRICS_LOG")
+import json, os
+from ml_summary import _resolve_log_path
+
+
+LOG_PATH = _resolve_log_path()
 
 def read_last_line(path):
     if not os.path.exists(path):
